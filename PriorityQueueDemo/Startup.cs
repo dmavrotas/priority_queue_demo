@@ -16,6 +16,7 @@ using Pomelo.EntityFrameworkCore.MySql.Storage;
 using PriorityQueueDemo.Contexts;
 using PriorityQueueDemo.Repositories;
 using PriorityQueueDemo.Repositories.Interfaces;
+using PriorityQueueDemo.Services;
 using PriorityQueueDemo.Services.Interfaces;
 
 namespace PriorityQueueDemo
@@ -45,7 +46,7 @@ namespace PriorityQueueDemo
             });
             
             services.AddTransient<IQueueTypeRepository, QueueTypeRepository>();
-            services.AddTransient<IQueueTypeService, IQueueTypeService>();
+            services.AddTransient<IQueueTypeService, QueueTypeService>();
 
             services.AddDbContext<PriorityQueueDbContext>(options =>
                     options

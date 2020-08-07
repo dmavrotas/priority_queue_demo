@@ -38,7 +38,7 @@ namespace PriorityQueueDemoTest.Services
         private readonly IQueueTypeRepository _queueTypeRepository;
 
         private readonly List<QueueType> _queueTypes;
-        
+
         [Fact]
         private void TestExceptions()
         {
@@ -51,14 +51,54 @@ namespace PriorityQueueDemoTest.Services
             mockException.Setup(x => x.Delete(It.IsAny<QueueType>())).Throws(new Exception());
 
             var queueTypeRepository = mockException.Object;
-            
-            var queueTypeService = new QueueService(queueTypeRepository);
-            
+
+            var queueTypeService = new QueueTypeService(queueTypeRepository);
+
             Assert.Throws<Exception>(() => queueTypeService.FindAll());
             Assert.Throws<Exception>(() => queueTypeService.FindById(1));
             Assert.Throws<Exception>(() => queueTypeService.Update(new QueueType()));
             Assert.Throws<Exception>(() => queueTypeService.Create(new QueueType()));
             Assert.Throws<Exception>(() => queueTypeService.Delete(new QueueType()));
+        }
+
+        [Fact]
+        private void TestFindAll()
+        {
+            var queueTypeService = new QueueTypeService(_queueTypeRepository);
+
+            Assert.Equal(_queueTypes, queueTypeService.FindAll());
+        }
+
+        [Fact]
+        private void TestFindById()
+        {
+            var queueTypeService = new QueueTypeService(_queueTypeRepository);
+
+            Assert.Equal(_queueTypes[0], queueTypeService.FindById(1));
+        }
+
+        [Fact]
+        private void TestCreate()
+        {
+            var queueTypeService = new QueueTypeService(_queueTypeRepository);
+
+            Assert.Equal(_queueTypes[0], queueTypeService.Create(new QueueType()));
+        }
+
+        [Fact]
+        private void TestUpdate()
+        {
+            var queueTypeService = new QueueTypeService(_queueTypeRepository);
+
+            Assert.Equal(_queueTypes[0], queueTypeService.Update(new QueueType()));
+        }
+
+        [Fact]
+        private void TestDelete()
+        {
+            var queueTypeService = new QueueTypeService(_queueTypeRepository);
+
+            Assert.Equal(_queueTypes[0], queueTypeService.Delete(new QueueType()));
         }
     }
 }

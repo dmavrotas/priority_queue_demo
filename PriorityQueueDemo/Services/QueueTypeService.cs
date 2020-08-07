@@ -8,11 +8,11 @@ namespace PriorityQueueDemo.Services
     /// <summary>
     /// 
     /// </summary>
-    public class QueueService : Service<QueueType>, IQueueTypeService
+    public class QueueTypeService : Service<QueueType>, IQueueTypeService
     {
         private IQueueTypeRepository _queueTypeRepository;
 
-        public QueueService(IQueueTypeRepository queueTypeRepository) : base(queueTypeRepository)
+        public QueueTypeService(IQueueTypeRepository queueTypeRepository) : base(queueTypeRepository)
         {
             _queueTypeRepository = queueTypeRepository;
         }
