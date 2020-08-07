@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace PriorityQueueDemo.Models
+namespace PriorityQueueDemo.Misc
 {
     [DataContract]
     public class KContent<T>

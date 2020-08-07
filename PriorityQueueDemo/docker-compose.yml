@@ -3,7 +3,7 @@
 services:
   kpqs_mysql:
     image: mysql:5.7
-    container_name: priority_queue_db
+    container_name: priority_queue_mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
@@ -11,19 +11,19 @@ services:
     volumes:
       - devmysqldb:/var/lib/priority_queue_db
       - ./Docker/MySQL:/docker-entrypoint-initdb.d
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile.local
-    depends_on:
-      - kpqs_mysql
-    stdin_open: true
-    tty: true
-    ports:
-      - 8080:80
-      - 443:443
-      - 44303:44303
-    environment:
-     - ASPNETCORE_ENVIRONMENT=Docker
+#  api:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.local
+#    depends_on:
+#      - priority_queue_mysql
+#    stdin_open: true
+#    tty: true
+#    ports:
+#      - 8080:80
+#      - 443:443
+#      - 44303:44303
+#    environment:
+#     - ASPNETCORE_ENVIRONMENT=Docker
 volumes:
   devmysqldb:

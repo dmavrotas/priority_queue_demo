@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using PriorityQueueDemo.Enums;
-using PriorityQueueDemo.Models;
+using PriorityQueueDemo.Misc;
 using Serilog;
 
 namespace PriorityQueueDemo.Controllers.Abstract

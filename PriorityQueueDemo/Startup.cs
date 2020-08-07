@@ -6,11 +6,17 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Pomelo.EntityFrameworkCore.MySql.Storage;
+using PriorityQueueDemo.Contexts;
+using PriorityQueueDemo.Repositories;
+using PriorityQueueDemo.Repositories.Interfaces;
+using PriorityQueueDemo.Services.Interfaces;
 
 namespace PriorityQueueDemo
 {
@@ -33,7 +39,20 @@ namespace PriorityQueueDemo
             services.AddControllers().AddNewtonsoftJson();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "PriorityQueueDemo API", Version = "v1" }); });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "PriorityQueueDemo API", Version = "v1"});
+            });
+            
+            services.AddTransient<IQueueTypeRepository, QueueTypeRepository>();
+            services.AddTransient<IQueueTypeService, IQueueTypeService>();
+
+            services.AddDbContext<PriorityQueueDbContext>(options =>
+                    options
+                        .UseMySql(
+                            $@"server={Configuration["MYSQL_HOST"]};port={Configuration["MYSQL_PORT"]};user={Configuration["MYSQL_USERNAME"]};password={Configuration["MYSQL_PASSWORD"]};database={Configuration["MYSQL_DB"]}",
+                            mySqlOptions => mySqlOptions.ServerVersion(new ServerVersion(new Version(8, 0, 18)))),
+                ServiceLifetime.Transient);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

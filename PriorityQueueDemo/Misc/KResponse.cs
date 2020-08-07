@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using PriorityQueueDemo.Enums;
 
-namespace PriorityQueueDemo.Models
+namespace PriorityQueueDemo.Misc
 {
     [DataContract]
     public class KResponse<T>
